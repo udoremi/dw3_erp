@@ -1,0 +1,63 @@
+### Necessário para pegar o token
+# @name loginAutenticado
+POST http://localhost:40000/Login HTTP/1.1
+content-type: application/json
+
+{
+    "username": "qwe",
+    "password": "qwe"
+}
+### Seta o token
+@accessToken = {{loginAutenticado.response.body.$.token}}
+
+### TESTES PARA FATURAS
+
+### Buscar todas as faturas
+GET http://localhost:40000/getAllFaturas HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{accessToken}}
+
+### Buscar fatura por ID
+POST http://localhost:40000/getFaturaByID HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+    "id_fatura": 2
+}
+
+### Inserir nova fatura
+POST http://localhost:40000/insertFaturas HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+    "id_cliente": 1,
+    "data_emissao": "2025-10-12",
+    "data_vencimento": "2025-11-10",
+    "valor_total": 1500.50,
+    "status": "Pendente"
+}
+
+### Atualizar fatura existente
+POST http://localhost:40000/updateFaturas HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+    "id_fatura": 1,
+    "id_cliente": 1,
+    "data_emissao": "2025-10-12",
+    "data_vencimento": "2025-11-15",
+    "valor_total": 1550.00,
+    "status": "Atrasada"
+}
+
+### Deletar uma fatura
+POST http://localhost:40000/deleteFaturas HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+    "id_fatura": 1
+}

@@ -1,0 +1,67 @@
+### Necessário para pegar o token
+# @name loginAutenticado
+POST http://localhost:40000/Login HTTP/1.1
+content-type: application/json
+
+{
+    "username": "qwe",
+    "password": "qwe"
+}
+### Seta o token
+@accessToken = {{loginAutenticado.response.body.$.token}}
+
+### TESTES PARA CLIENTES
+
+### Buscar todos os clientes
+GET http://localhost:40000/getAllClientes HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{accessToken}}
+
+### Buscar cliente por ID
+POST http://localhost:40000/getClienteByID HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+    "id_cliente": 2
+}
+
+### Inserir novo cliente
+POST http://localhost:40000/insertClientes HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+    "nome": "Empresa XYZ Ltda",
+    "cpf_cnpj": "12.345.678/0001-99",
+    "endereco": "Rua das Flores, 123",
+    "telefone": "11987654321",
+    "email": "contato@xyz.com",
+    "data_cadastro": "2025-10-12T10:00:00Z",
+    "ativo": true
+}
+
+### Atualizar cliente existente
+POST http://localhost:40000/updateClientes HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+    "id_cliente": 1,
+    "nome": "Empresa XYZ & Filhos Ltda",
+    "cpf_cnpj": "12.345.678/0001-99",
+    "endereco": "Avenida Principal, 456",
+    "telefone": "11999998888",
+    "email": "financeiro@xyz.com",
+    "data_cadastro": "2025-10-12T10:00:00Z",
+    "ativo": true
+}
+
+### Deletar (desativar) um cliente
+POST http://localhost:40000/deleteClientes HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+    "id_cliente": 1
+}
