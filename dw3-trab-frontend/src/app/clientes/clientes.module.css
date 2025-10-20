@@ -1,0 +1,240 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    color: #c9d1d9;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+.addButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background-color: #238636;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.addButton:hover {
+    background-color: #2ea043;
+}
+
+.tableContainer {
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid #30363d;
+    color: #c9d1d9;
+}
+
+.table th {
+    background-color: #21262d;
+    font-weight: 600;
+    color: #8b949e;
+}
+
+.table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.table tbody tr:hover {
+    background-color: #21262d;
+}
+
+.statusAtivo,
+.statusInativo {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.statusAtivo {
+    background-color: rgba(35, 134, 54, 0.2);
+    color: #3fb950;
+}
+
+.statusInativo {
+    background-color: rgba(248, 81, 73, 0.2);
+    color: #f85149;
+}
+
+.actions {
+    display: flex;
+    gap: 12px;
+}
+
+.actionButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #8b949e;
+    padding: 4px;
+    transition: color 0.2s;
+}
+
+.editButton:hover {
+    color: #58a6ff;
+}
+
+.deleteButton:hover {
+    color: #f85149;
+}
+
+.formGroup {
+    margin-bottom: 20px;
+}
+
+.formGroup label {
+    display: block;
+    color: #8b949e;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.input {
+    width: 100%;
+    padding: 10px 14px;
+    background-color: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    color: #c9d1d9;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #238636;
+    box-shadow: 0 0 0 3px rgba(35, 134, 54, 0.3);
+}
+
+.formActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #30363d;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.saveButton {
+    background-color: #238636;
+    color: white;
+}
+.saveButton:hover {
+    background-color: #2ea043;
+}
+
+.cancelButton {
+    background-color: #30363d;
+    color: #c9d1d9;
+    border: 1px solid #484f58;
+}
+.cancelButton:hover {
+    background-color: #484f58;
+}
+
+.toggleSwitch {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.toggleSwitch input[type="checkbox"] {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+
+.toggleSwitch label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 50px;
+    height: 28px;
+    background: #484f58;
+    display: block;
+    border-radius: 100px;
+    position: relative;
+    color: #c9d1d9 !important;
+    margin: 0 !important;
+}
+
+.toggleSwitch label:after {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 22px;
+    height: 22px;
+    background: #fff;
+    border-radius: 90px;
+    transition: 0.3s;
+}
+
+.toggleSwitch input:checked + label {
+    background: #238636;
+}
+
+.toggleSwitch input:checked + label:after {
+    left: calc(100% - 3px);
+    transform: translateX(-100%);
+}
+
+.toggleSwitch label:active:after {
+    width: 30px;
+}
+
+.toggleSwitch span {
+    color: #c9d1d9;
+    font-weight: 500;
+}
+
+.formError {
+    margin-top: 16px;
+    padding: 12px;
+    background-color: rgba(248, 81, 73, 0.1);
+    color: #f85149;
+    border: 1px solid rgba(248, 81, 73, 0.2);
+    border-radius: 6px;
+    text-align: center;
+    font-size: 0.9rem;
+}

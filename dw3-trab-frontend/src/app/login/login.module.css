@@ -1,0 +1,151 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #0d1117;
+  font-family: inherit;
+}
+
+.loginBox {
+  padding: 32px 40px;
+  background-color: #161b22;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid #30363d;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.logoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #c9d1d9;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.label {
+  color: #c9d1d9;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: -8px;
+}
+
+.passwordWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 16px;
+  background-color: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  color: #c9d1d9;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.passwordWrapper .input {
+  padding-right: 40px; 
+}
+
+.input:focus {
+  outline: none;
+  border-color: #238636;
+  box-shadow: 0 0 0 3px rgba(35, 134, 54, 0.3);
+}
+
+.togglePassword {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #8b949e;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.togglePassword svg {
+  width: 20px;
+  height: 20px;
+}
+
+.optionsRow {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.forgotPassword {
+  font-size: 0.85rem;
+  color: #58a6ff;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.forgotPassword:hover {
+  text-decoration: underline;
+}
+
+.button {
+  padding: 12px 16px;
+  background-color: #238636;
+  border: 1px solid rgba(240, 246, 252, 0.1);
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.button:hover {
+  background-color: #2ea043;
+}
+
+.button:disabled {
+  background-color: #30363d;
+  color: #8b949e;
+  cursor: not-allowed;
+}
+
+.signupLink {
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.signupLink a {
+  color: #58a6ff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.signupLink a:hover {
+  text-decoration: underline;
+}
+.error {
+    color: #ff8a8a;
+    font-size: 0.9rem;
+    text-align: center;
+}

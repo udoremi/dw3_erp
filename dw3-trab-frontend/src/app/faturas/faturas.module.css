@@ -1,0 +1,121 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    color: #c9d1d9;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+.addButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background-color: #238636;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.addButton:hover {
+    background-color: #2ea043;
+}
+
+.tableContainer {
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid #30363d;
+    color: #c9d1d9;
+}
+
+.table th {
+    background-color: #21262d;
+    font-weight: 600;
+    color: #8b949e;
+}
+
+.table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.table tbody tr:hover {
+    background-color: #21262d;
+}
+
+.statusBadge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-align: center;
+    min-width: 80px;
+    display: inline-block;
+}
+
+.statusPaga {
+    background-color: rgba(35, 134, 54, 0.2);
+    color: #3fb950; /* Texto verde */
+}
+
+.statusPendente {
+    background-color: rgba(234, 182, 47, 0.2);
+    color: #eab62f;
+}
+
+.statusCancelada {
+    background-color: rgba(248, 81, 73, 0.2);
+    color: #f85149;
+}
+
+.inactiveRow {
+    color: #8b949e;
+    font-style: italic;
+}
+.inactiveRow td:first-child {
+    color: #8b949e;
+}
+
+.actions {
+    display: flex;
+    gap: 12px;
+}
+
+.actionButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #8b949e;
+    padding: 4px;
+    transition: color 0.2s;
+}
+
+.editButton:hover {
+    color: #58a6ff;
+}
+
+.deleteButton:hover {
+    color: #f85149;
+}

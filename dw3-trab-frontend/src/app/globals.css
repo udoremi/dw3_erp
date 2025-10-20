@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+:root {
+  --background-start-rgb: 2, 0, 36;
+  --background-end-rgb: 9, 9, 121;
+  --primary-glow-rgb: 36, 0, 115;
+  --secondary-glow-rgb: 9, 9, 121;
+
+  --foreground-rgb: 255, 255, 255;
+  --input-bg-rgb: 22, 22, 38;
+  --input-border-rgb: 59, 59, 92;
+
+  --primary-accent: #6a11cb;
+  --secondary-accent: #2575fc;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+    to bottom right,
+    rgba(var(--background-start-rgb), 1),
+    rgba(var(--background-end-rgb), 0.7)
+  );
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-poppins);
+}
+
+* {
+  box-sizing: border-box;
+}
