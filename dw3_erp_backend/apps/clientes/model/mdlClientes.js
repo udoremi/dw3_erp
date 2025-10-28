@@ -1,14 +1,16 @@
 const db = require('../../../database/databaseconfig');
 
 const getAllClientes = async () => {
-  //   return (
-  //     await db.query("SELECT * FROM clientes WHERE ativo = true ORDER BY nome ASC")
-  //   ).rows;
   return (
     await db.query(
-      'SELECT * FROM clientes ORDER BY nome ASC',
+      'SELECT * FROM clientes WHERE ativo = true ORDER BY nome ASC',
     )
   ).rows;
+  // return (
+  //   await db.query(
+  //     'SELECT * FROM clientes ORDER BY nome ASC',
+  //   )
+  // ).rows;
 };
 
 const getClienteByID = async (clienteIDPar) => {
