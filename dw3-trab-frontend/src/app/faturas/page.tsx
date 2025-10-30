@@ -1,14 +1,15 @@
 'use client';
 
-import { useState, useEffect } from "react";
-import MainLayout from "@/app/components/MainLayout";
-import Modal from "@/app/components/Modal";
-import ConfirmationModal from "@/app/components/ConfirmationModal";
-import FaturaForm from "@/app/components/FaturaForm";
+import { useState, useEffect, useMemo } from "react";
+import MainLayout from "../components/MainLayout";
+import Modal from "../components/Modal";
+import ConfirmationModal from "../components/ConfirmationModal";
+import FaturaForm from "../components/FaturaForm";
+import FaturaFilter from "../components/FaturaFilter";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import styles from './faturas.module.css';
-import { IoAdd, IoPencil, IoTrash } from "react-icons/io5";
+import styles from '../faturas/faturas.module.css';
+import { IoAdd, IoPencil, IoTrash, IoFilter } from "react-icons/io5";
 import api from "../../../services/api";
 
 const formatCurrency = (value: number | string) => {
@@ -38,11 +39,16 @@ interface FaturaData {
     status: string;
 }
 
+interface ClientForSelect {
+    id_cliente: number;
+    nome: string;
+}
+
 export default function FaturasPage() {
     const { isAuthenticated, loading: authLoading } = useAuth();
     const router = useRouter();
     
-    const [faturas, setFaturas] = useState<FaturaData[]>([]);
+    const [allFaturas, setAllFaturas] = useState<FaturaData[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     
     const [isFormModalOpen, setIsFormModalOpen] = useState(false);
@@ -52,23 +58,32 @@ export default function FaturasPage() {
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
     const [faturaToDelete, setFaturaToDelete] = useState<number | null>(null);
 
+    const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+    const [filterClientList, setFilterClientList] = useState<ClientForSelect[]>([]);
+    const [selectedClientId, setSelectedClientId] = useState<number | null>(null);
+
     const fetchFaturas = async () => {
         setIsLoading(true);
         try {
             const response = await api.get('/getAllFaturas');
             if (response.data && Array.isArray(response.data.registro)) {
-                const faturasData = response.data.registro.map((f: any) => ({
-                    ...f, id: f.id_fatura,
-                }));
-                setFaturas(faturasData);
+                const faturasData = response.data.registro.map((f: any) => ({ ...f, id: f.id_fatura }));
+                setAllFaturas(faturasData);
             } else {
-                setFaturas([]);
+                setAllFaturas([]);
+            }
+        } catch (error) { console.error("Erro ao buscar faturas:", error); setAllFaturas([]); } 
+        finally { setIsLoading(false); }
+    };
+
+    const fetchClientsForFilter = async () => {
+        try {
+            const response = await api.get('/getAllClientesFilter');
+            if (response.data && Array.isArray(response.data.registro)) {
+                setFilterClientList(response.data.registro);
             }
         } catch (error) {
-            console.error("Erro ao buscar faturas:", error);
-            setFaturas([]);
-        } finally {
-            setIsLoading(false);
+            console.error("Erro ao buscar clientes:", error);
         }
     };
 
@@ -76,6 +91,28 @@ export default function FaturasPage() {
         if (!authLoading && !isAuthenticated) router.push('/login');
         if (isAuthenticated) fetchFaturas();
     }, [isAuthenticated, authLoading, router]);
+
+    const filteredFaturas = useMemo(() => {
+        if (!selectedClientId) {
+            return allFaturas;
+        }
+        return allFaturas.filter(fatura => fatura.id_cliente === selectedClientId);
+    }, [allFaturas, selectedClientId]);
+
+    const handleOpenFilterModal = () => {
+        fetchClientsForFilter();
+        setIsFilterModalOpen(true);
+    };
+
+    const handleApplyFilter = (clientId: number | null) => {
+        setSelectedClientId(clientId);
+        setIsFilterModalOpen(false);
+    };
+
+    const handleClearFilter = () => {
+        setSelectedClientId(null);
+        setIsFilterModalOpen(false);
+    };
 
     const handleSaveFatura = async (faturaData: Partial<FaturaData>) => {
         setFormError(null);
@@ -127,11 +164,22 @@ export default function FaturasPage() {
     
     if (authLoading) return <div style={{ color: 'white', textAlign: 'center', paddingTop: '50px' }}>Verificando autenticação...</div>;
 
-    return (
+return (
         <MainLayout>
             <div className={styles.header}>
-                <h1>Gestão de Faturas</h1>
-                <button onClick={handleAddNew} className={styles.addButton}><IoAdd size={20} /><span>Nova Fatura</span></button>
+                <div className={styles.headerLeft}>
+                    <h1>Gestão de Faturas</h1>
+                </div>
+                <div className={styles.headerRight}>
+                    <button onClick={handleOpenFilterModal} className={styles.filterButton}>
+                        <IoFilter size={20} />
+                        <span>Filtros</span>
+                    </button>
+                    <button onClick={handleAddNew} className={styles.addButton}>
+                        <IoAdd size={20} />
+                        <span>Nova Fatura</span>
+                    </button>
+                </div>
             </div>
             {isLoading ? (<div style={{ color: 'white', textAlign: 'center' }}>Carregando faturas...</div>) : (
                 <div className={styles.tableContainer}>
@@ -147,17 +195,13 @@ export default function FaturasPage() {
                             </tr>
                         </thead>
                         <tbody>
-                            {faturas.length > 0 ? faturas.map((fatura) => (
+                            {filteredFaturas.length > 0 ? filteredFaturas.map((fatura) => (
                                 <tr key={fatura.id} className={fatura.status === 'Cancelada' ? styles.inactiveRow : ''}>
                                     <td>{fatura.nome_cliente || 'Cliente não informado'}</td>
                                     <td>{formatCurrency(fatura.valor_total)}</td>
                                     <td>{formatDate(fatura.data_emissao)}</td>
                                     <td>{formatDate(fatura.data_vencimento)}</td>
-                                    <td>
-                                        <span className={`${styles.statusBadge} ${statusStyles[fatura.status] || styles.statusPendente}`}>
-                                            {fatura.status}
-                                        </span>
-                                    </td>
+                                    <td><span className={`${styles.statusBadge} ${statusStyles[fatura.status] || styles.statusPendente}`}>{fatura.status}</span></td>
                                     <td className={styles.actions}>
                                         <button onClick={() => handleEdit(fatura)} className={`${styles.actionButton} ${styles.editButton}`}><IoPencil /></button>
                                         <button onClick={() => handleDeleteClick(fatura.id!)} className={`${styles.actionButton} ${styles.deleteButton}`}><IoTrash /></button>
@@ -165,17 +209,29 @@ export default function FaturasPage() {
                                 </tr>
                             )) : (
                                 <tr>
-                                    <td colSpan={6} style={{ textAlign: 'center' }}>Nenhuma fatura encontrada.</td>
+                                    <td colSpan={6} style={{ textAlign: 'center' }}>
+                                        {selectedClientId ? 'Nenhuma fatura encontrada para este cliente.' : 'Nenhuma fatura encontrada.'}
+                                    </td>
                                 </tr>
                             )}
                         </tbody>
                     </table>
                 </div>
             )}
+            
             <Modal isOpen={isFormModalOpen} onClose={handleCloseFormModal} title={editingFatura ? "Editar Fatura" : "Nova Fatura"}>
                 <FaturaForm onSave={handleSaveFatura} onCancel={handleCloseFormModal} initialData={editingFatura} errorMessage={formError}/>
             </Modal>
+            
             <ConfirmationModal isOpen={isConfirmModalOpen} onClose={() => setIsConfirmModalOpen(false)} onConfirm={handleConfirmDelete} title="Confirmar Exclusão" message="Você tem certeza que deseja excluir esta fatura?"/>
+
+            <Modal isOpen={isFilterModalOpen} onClose={() => setIsFilterModalOpen(false)} title="Filtrar Faturas">
+                <FaturaFilter
+                    clients={filterClientList}
+                    onApply={handleApplyFilter}
+                    onClear={handleClearFilter}
+                />
+            </Modal>
         </MainLayout>
     );
 }

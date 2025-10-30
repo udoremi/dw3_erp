@@ -17,6 +17,11 @@ GET http://localhost:40000/getAllClientes HTTP/1.1
 content-type: application/json
 Authorization: Bearer {{accessToken}}
 
+### Buscar todos os clientes incluindo os com status inativo
+GET http://localhost:40000/getAllClientesFilter HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{accessToken}}
+
 ### Buscar cliente por ID
 POST http://localhost:40000/getClienteByID HTTP/1.1
 content-type: application/json

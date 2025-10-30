@@ -21,6 +21,7 @@ routerApp.post("/Logout", appLogin.Logout);
 //@ Rotas de Clientes
 // Obs: Adicione 'appLogin.AutenticaJWT' para proteger a rota
 routerApp.get("/getAllClientes", appLogin.AutenticaJWT, appClientes.getAllClientes);
+routerApp.get("/getAllClientesFilter", appLogin.AutenticaJWT, appClientes.getAllClientesFilter);
 routerApp.post("/getClienteByID", appLogin.AutenticaJWT, appClientes.getClienteByID);
 routerApp.post("/insertClientes", appLogin.AutenticaJWT, appClientes.insertClientes);
 routerApp.post("/updateClientes", appLogin.AutenticaJWT, appClientes.updateClientes);

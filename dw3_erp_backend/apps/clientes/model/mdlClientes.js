@@ -13,6 +13,10 @@ const getAllClientes = async () => {
   // ).rows;
 };
 
+const getAllClientesFilter = async () => {
+  return (await db.query('SELECT * FROM clientes ORDER BY nome ASC')).rows;
+};
+
 const getClienteByID = async (clienteIDPar) => {
   return (
     await db.query(
@@ -101,6 +105,7 @@ const deleteClientes = async (clienteREGPar) => {
 
 module.exports = {
   getAllClientes,
+  getAllClientesFilter,
   getClienteByID,
   insertClientes,
   updateClientes,
