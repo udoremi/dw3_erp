@@ -59,7 +59,7 @@ export default function ClientForm({ onSave, onCancel, initialData, errorMessage
                 <input type="text" id="nome" value={nome} onChange={(e) => setNome(e.target.value)} className={styles.input} required maxLength={100} />
             </div>
             <div className={styles.formGroup}>
-                <label htmlFor="cpf_cnpj">CPF/CNPJ *</label>
+                <label htmlFor="cpf_cnpj">CPF</label>
                 <IMaskInput
                     mask="000.000.000-00"
                     id="cpf_cnpj"

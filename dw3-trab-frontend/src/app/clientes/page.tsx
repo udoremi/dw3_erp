@@ -24,7 +24,7 @@ const formatCpfCnpj = (value: string) => {
 
 const translateBackendError = (errorMessage: string): string => {
     if (errorMessage.includes('Chave (cpf_cnpj)')) {
-        return 'O CPF/CNPJ informado já está cadastrado no sistema.';
+        return 'O CPF informado já está cadastrado no sistema.';
     }
     if (errorMessage.includes('Chave (email)')) {
         return 'O Email informado já está cadastrado no sistema.';
@@ -175,7 +175,7 @@ export default function ClientesPage() {
                         <thead>
                             <tr>
                                 <th>Nome</th>
-                                <th>CPF/CNPJ</th>
+                                <th>CPF</th>
                                 <th>Email</th>
                                 <th>Status</th>
                                 <th>Ações</th>
