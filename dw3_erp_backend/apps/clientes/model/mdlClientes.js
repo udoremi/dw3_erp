@@ -29,6 +29,11 @@ const getClienteByID = async (clienteIDPar) => {
 const insertClientes = async (clienteREGPar) => {
   let linhasAfetadas;
   let msg = 'ok';
+
+  const dataCadastroAtual = new Date();
+
+  dataCadastroAtual.setMilliseconds(0);
+
   try {
     linhasAfetadas = (
       await db.query(
@@ -40,7 +45,7 @@ const insertClientes = async (clienteREGPar) => {
           clienteREGPar.endereco,
           clienteREGPar.telefone,
           clienteREGPar.email,
-          clienteREGPar.data_cadastro,
+          dataCadastroAtual,
           clienteREGPar.ativo,
         ],
       )
