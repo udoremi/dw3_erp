@@ -89,14 +89,6 @@ export default function ClientForm({ onSave, onCancel, initialData, errorMessage
                 <label htmlFor="endereco">Endereço</label>
                 <input type="text" id="endereco" value={endereco} onChange={(e) => setEndereco(e.target.value)} className={styles.input} maxLength={255}/>
             </div>
-            {/* <div className={styles.formGroup}>
-                <label>Status</label>
-                <div className={styles.toggleSwitch}>
-                    <input type="checkbox" id="status" checked={ativo} onChange={(e) => setAtivo(e.target.checked)} />
-                    <label htmlFor="status">Toggle Status</label>
-                    <span>{ativo ? 'Ativo' : 'Inativo'}</span>
-                </div>
-            </div> */}
             <div className={styles.formActions}>
                 <button type="button" onClick={onCancel} className={`${styles.button} ${styles.cancelButton}`}>Cancelar</button>
                 <button type="submit" className={`${styles.button} ${styles.saveButton}`}>Salvar</button>
